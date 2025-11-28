@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Help Tool - Local Language Support</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #151618 0%, #c3cfe2 100%);
+            color: #333;
+        }
+
+        .container { max-width: 1200px; margin: auto; padding: 0 20px; }
+
+        /* HEADER */
+        header {
+            background: #1a365d; color: white;
+            padding: 1rem 0; position: fixed;
+            width: 100%; top: 0; z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; }
+
+        .language-selector {
+            background: rgba(255,255,255,0.1);
+            color: white; padding: 8px 15px;
+            border-radius: 25px; border: none;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center; color: white;
+            padding: 120px 0 80px; margin-top: 70px;
+            background: linear-gradient(rgba(26,54,93,0.9), rgba(26,54,93,0.9));
+        }
+        .hero h1 { font-size: 3rem; }
+        .hero p { font-size: 1.3rem; max-width: 600px; margin: auto; }
+
+        /* COMMON SECTION */
+        .section {
+            background: white; padding: 50px 0;
+            margin: 40px 0; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        /* SEARCH SECTION */
+        .search-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white; text-align: center;
+        }
+
+        .search-box {
+            max-width: 600px; margin: 2rem auto 0;
+            display: flex; gap: 10px;
+        }
+        .search-input {
+            flex: 1; padding: 15px 20px;
+            border-radius: 50px; border: none;
+        }
+        .search-btn {
+            padding: 15px 30px; border-radius: 50px; border: none;
+            background: #48bb78; color: white; font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* OUTPUT */
+        #output {
+            text-align: left !important;
+            background: white; color: black;
+            margin-top: 30px; padding: 20px;
+            border-radius: 15px;
+            border-left: 6px solid #48bb78;
+            max-width: 700px;
+            margin-left: auto; margin-right: auto;
+            white-space: pre-wrap;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* SERVICES */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+            gap: 25px; padding: 20px;
+        }
+        .service-card {
+            padding: 18px; background: #96c5f3;
+            border-radius: 12px; cursor: pointer;
+            text-align: center; font-size: 1.1rem;
+            transition: 0.25s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            background: #1a365d; color: white;
+            text-align: center; padding: 40px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav class="container">
+        <div class="logo" id="logo">Legal Help Tool</div>
+
+        <select class="language-selector" onchange="switchLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+        </select>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1 id="heroTitle">Free Legal Help in Your Language</h1>
+    <p id="heroDesc">Get instant access to legal information in your local language.</p>
+</section>
+
+<main>
+    <!-- SEARCH SECTION -->
+    <section class="section search-section">
+        <h2 id="searchTitle">Search Legal Help</h2>
+        <p id="searchDesc">Enter your legal question</p>
+
+        <div class="search-box">
+            <input type="text" id="userText" class="search-input"
+                   placeholder="What legal help do you need? (e.g., mujhe police me complaint likhni hai)">
+            <button class="search-btn" id="searchBtn">Search</button>
+        </div>
+
+        <div id="output"></div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section">
+        <h2 style="text-align:center;" id="servicesTitle">Available Services</h2>
+
+        <div class="services-grid">
+            <div class="service-card" data-example="family dispute legal help">⚖ Family Law</div>
+            <div class="service-card" data-example="housing eviction problem">🏠 Housing Help</div>
+            <div class="service-card" data-example="salary not given complain">💼 Employment Law</div>
+            <div class="service-card" data-example="refund scam complain">🛡 Consumer Protection</div>
+            <div class="service-card" data-example="visa citizenship help">📄 Immigration</div>
+            <div class="service-card" data-example="police case fir help">🚨 Criminal Defense</div>
+            <div class="service-card" data-example="property land dispute">🏛 Property Law</div>
+            <div class="service-card" data-example="medical negligence">⚕ Health Rights</div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p id="footerTxt">© 2025 Legal Help Tool</p>
+</footer>
+
+<script>
+/* ------- LANGUAGE DATA ------- */
+const languageData = {
+    en: {
+        logo:"Legal Help Tool",
+        heroTitle:"Free Legal Help in Your Language",
+        heroDesc:"Get instant access to legal information in your local language.",
+        searchTitle:"Search Legal Help",
+        searchDesc:"Enter your legal question",
+        searchPlaceholder:"What legal help do you need? (e.g., mujhe police me complaint likhni hai)",
+        searchBtn:"Search",
+        servicesTitle:"Available Services",
+        services:[
+            "⚖ Family Law","🏠 Housing Help","💼 Employment Law",
+            "🛡 Consumer Protection","📄 Immigration","🚨 Criminal Defense",
+            "🏛 Property Law","⚕ Health Rights"
+        ],
+        footer:"© 2025 Legal Help Tool"
+    },
+
+    hi: {
+        logo:"लीगल हेल्प टूल",
+        heroTitle:"आपकी भाषा में मुफ्त कानूनी सहायता",
+        heroDesc:"अपनी स्थानीय भाषा में तुरंत कानूनी जानकारी और सहायता प्राप्त करें।",
+        searchTitle:"कानूनी सहायता खोजें",
+        searchDesc:"अपना कानूनी प्रश्न दर्ज करें",
+        searchPlaceholder:"आपको किस कानूनी सहायता की आवश्यकता है?",
+        searchBtn:"खोजें",
+        servicesTitle:"उपलब्ध सेवाएँ",
+        services:[
+            "⚖ परिवार कानून","🏠 आवास सहायता","💼 रोजगार कानून",
+            "🛡 उपभोक्ता संरक्षण","📄 इमिग्रेशन","🚨 आपराधिक रक्षा",
+            "🏛 संपत्ति कानून","⚕ स्वास्थ्य अधिकार"
+        ],
+        footer:"© 2025 लीगल हेल्प टूल"
+    }
+};
+
+/* ------- CHANGE LANGUAGE ------- */
+function switchLanguage(lang) {
+    const d = languageData[lang];
+
+    document.getElementById("logo").innerText = d.logo;
+    document.getElementById("heroTitle").innerText = d.heroTitle;
+    document.getElementById("heroDesc").innerText = d.heroDesc;
+    document.getElementById("searchTitle").innerText = d.searchTitle;
+    document.getElementById("searchDesc").innerText = d.searchDesc;
+
+    document.getElementById("userText").placeholder = d.searchPlaceholder;
+    document.getElementById("searchBtn").innerText = d.searchBtn;
+
+    document.getElementById("servicesTitle").innerText = d.servicesTitle;
+    document.getElementById("footerTxt").innerText = d.footer;
+
+    document.querySelectorAll(".service-card").forEach((c,i)=>{
+        c.innerText = d.services[i];
+    });
+}
+
+/* ------- BACKEND CALL ------- */
+document.getElementById("searchBtn").addEventListener("click", async () => {
+    const userText = document.getElementById("userText").value;
+    if (!userText) return alert("Please type something!");
+
+    const currentLang = document.querySelector(".language-selector").value;
+
+    const res = await fetch("http://127.0.0.1:8000/process", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ text:userText, lang: currentLang })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("output").innerHTML = `
+        <b>Translated:</b><br>${data.translated}<br><br>
+        <b>Case Type:</b><br>${data.case_type}<br><br>
+        <b>Legal Text:</b><br>${data.legal_text.replace(/\n/g, "<br>")}
+    `;
+});
+
+/* ------- CARDS: AUTOFILL + AUTO SEARCH ------- */
+document.querySelectorAll(".service-card").forEach(card => {
+    card.addEventListener("click", () => {
+        document.getElementById("userText").value = card.dataset.example;
+        document.getElementById("searchBtn").click();
+    });
+});
+</script>
+
+</body>
+</html>
