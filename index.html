@@ -226,11 +226,12 @@ document.getElementById("searchBtn").addEventListener("click", async () => {
 
     const currentLang = document.querySelector(".language-selector").value;
 
-    const res = await fetch("http://127.0.0.1:8000/process", {
-        method:"POST",
-        headers:{ "Content-Type":"application/json" },
-        body:JSON.stringify({ text:userText, lang: currentLang })
+    const res = await fetch("https://legal-help-backend.onrender.com/process", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({ text:userText, lang: currentLang })
     });
+
 
     const data = await res.json();
 
@@ -251,4 +252,5 @@ document.querySelectorAll(".service-card").forEach(card => {
 </script>
 
 </body>
+
 </html>
