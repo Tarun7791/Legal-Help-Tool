@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
-from googletrans import Translator
+from deep_translator import GoogleTranslator
+
 
 app = FastAPI()
 
@@ -15,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-translator = Translator()
+
 
 # ----------------- TEMPLATES (ENGLISH) -----------------
 templates_en = {
@@ -158,7 +159,7 @@ def process_text(data: InputText):
     lang = (data.lang or "en").lower()
 
     # Hinglish/local → English
-    translated = translator.translate(raw_text, dest="en").text
+   translated = GoogleTranslator(source='auto', target='en').translate(raw_text)
 
     case_type = classify_case(raw_text)
 
@@ -184,3 +185,4 @@ def home():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=10000)
+
