@@ -178,4 +178,9 @@ def process_text(data: InputText):
 # ----------------- ROOT TEST -----------------
 @app.get("/")
 def home():
+
     return {"message": "Legal Help Tool Backend is Running!"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=10000)
