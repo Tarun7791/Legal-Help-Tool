@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from typing import Optional
 from deep_translator import GoogleTranslator
 
-
 app = FastAPI()
 
 # CORS so frontend can call backend
@@ -15,8 +14,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 
 # ----------------- TEMPLATES (ENGLISH) -----------------
 templates_en = {
@@ -150,7 +147,7 @@ def classify_case(text: str) -> str:
 # ----------------- REQUEST MODEL -----------------
 class InputText(BaseModel):
     text: str
-    lang: Optional[str] = "en"   # "en" ya "hi"
+    lang: Optional[str] = "en"
 
 # ----------------- MAIN API -----------------
 @app.post("/process")
@@ -158,8 +155,8 @@ def process_text(data: InputText):
     raw_text = data.text
     lang = (data.lang or "en").lower()
 
-    # Hinglish/local → English
-   translated = GoogleTranslator(source='auto', target='en').translate(raw_text)
+    # Translate Hinglish/Local → English
+    translated = GoogleTranslator(source="auto", target="en").translate(raw_text)
 
     case_type = classify_case(raw_text)
 
@@ -179,10 +176,9 @@ def process_text(data: InputText):
 # ----------------- ROOT TEST -----------------
 @app.get("/")
 def home():
-
     return {"message": "Legal Help Tool Backend is Running!"}
+
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=10000)
-
